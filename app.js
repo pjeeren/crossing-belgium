@@ -103,7 +103,7 @@ function assistanceCard(info) {
       : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}&travelmode=${route.mode || 'driving'}`;
     return `<a class="map-link assistance-route" href="${e(url)}" target="_blank" rel="noopener noreferrer">${e(route.label)} ↗</a>`;
   }).join('');
-  return `<section class="assistance-box" aria-label="Informatie voor assistentie"><p class="assistance-kicker">ASSISTENTIE</p><h5>${e(info.title)}</h5><ul>${info.notes.map(note => `<li>${e(note)}</li>`).join('')}</ul>${links ? `<div class="assistance-routes">${links}</div>` : ''}</section>`;
+  return `<details class="assistance-box"><summary class="assistance-toggle">Assistentie <span aria-hidden="true">⌄</span></summary><div class="assistance-content"><h5>${e(info.title)}</h5><ul>${info.notes.map(note => `<li>${e(note)}</li>`).join('')}</ul>${links ? `<div class="assistance-routes">${links}</div>` : ''}</div></details>`;
 }
 function stageCard(s, index, info) {
   const quickMap = (label, key) => {
