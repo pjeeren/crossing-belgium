@@ -23,7 +23,7 @@ const places = {
 
 const days = [
  {date:'DO 12 NOV', short:'Duinbergen', title:'De proloog', route:'Duinbergen → basecamp', brief:'Registratie 17:30–18:15 bij RSBC Duinbergen. Alle vier melden zich aan met identiteitskaart, ondertekende waiver, EHBO-set, overlevingsdekens en kompas. Geen parking aan de zeilclub.', stages:[
-  {n:'01', title:'Strandproloog', sub:'Te voet · strand en proeven', distance:'ca. 1 km', assist:'Iedereen', time:'Vanaf 18:30', from:'club', to:'club', timing:'Gefaseerde start vanaf 18:30, elke minuut een team. In jullie planning staat 19:00; controleer het exacte startslot bij de organisatie.', notes:['Alle 4 teamleden doen mee; geen assistent.','Een hoofdlamp is toegestaan en aangeraden.']},
+  {n:'01', title:'Strandproloog', sub:'Te voet · strand en proeven', distance:'ca. 1 km', assist:'Iedereen', time:'Start 19:00', from:'club', to:'club', notes:['Jullie team start om 19:00.','Alle 4 teamleden doen mee; geen assistent.','Een hoofdlamp is toegestaan en aangeraden.']},
   {n:'↗', title:'Naar basecamp I', sub:'Verbinding met de wagen', assist:'Heel het team', time:'19:30–20:00', from:'club', to:'camp', notes:['Parkeer op de graszone naast het basecamp.','Bar vanaf 20:00 · diner 20:00 · briefing dag 2 om 21:00, in de grote tent.']}
  ]},
  {date:'VR 13 NOV', short:'Knokke → Gent', title:'Van zee naar stad', route:'Knokke → Gent', brief:'Ontbijt 07:15–08:00 bij Surfers Paradise. Aanmelden CP1 08:00–08:20; massastart om 08:30 op het strand. De assistent parkeert aan Zwinlaan en wandelt ongeveer 10 minuten.', extra:{label:'Parking start', place:'surfParking'}, stages:[
