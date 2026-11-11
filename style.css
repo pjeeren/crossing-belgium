@@ -36,6 +36,13 @@
 .quick-map{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:6px 12px;border:1px solid #aebda8;border-radius:6px;color:#193e28;font-size:12px;font-weight:700;text-decoration:none}
 .quick-map:hover{background:#edf2e4}
 .quick-map.unavailable{border-style:dashed;color:#69766e;font-weight:500}
+.assistance-box{background:#edf4e4;border:1px solid #d5e4c4;border-radius:8px;padding:15px;margin-bottom:14px}
+.assistance-kicker{font-size:10px;font-weight:800;letter-spacing:.12em;color:#567534;margin:0 0 4px}
+.assistance-box h5{font:700 16px Outfit,sans-serif;margin:0 0 7px}
+.assistance-box ul{padding-left:19px;margin:0;color:#354b3b;font-size:13px}
+.assistance-box li{margin:6px 0}
+.assistance-routes{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.assistance-route{min-height:40px}
 .info-section{padding-top:50px}
 @media(max-width:700px){
   .topbar{height:58px}

@@ -55,27 +55,71 @@ const days = [
  ]}
 ];
 
+// Assistance instructions are taken from the roadbook; directions start at the user's current location.
+const assistance = [
+  [
+    {title:'Registratie en proloog', notes:['Alle vier doen mee aan de proloog; er is geen assistent. Aan de zeilclub zelf is geen parking voorzien. Zoek parking op de openbare weg.'], routes:[]},
+    {title:'Met het hele team naar basecamp I', notes:['Verplaatsing tussen 19:30 en 20:00. Parkeer op de graszone naast het basecamp.'], routes:[{label:'Rij naar basecamp', place:'camp'}]}
+  ],
+  [
+    {title:'Robbe · van de start naar CP5', notes:['De surfclub is niet bereikbaar met de wagen. Parkeer op de openbare weg aan Zwinlaan, zo dicht mogelijk bij Appelzakstraat. Wandel ongeveer 10 minuten: Appelzakstraat omhoog naar de dijk, daarna rechts.','CP5 is de ruime parking bij de ingang van Camping Zwinhoeve. Om te supporteren bij CP4: wandel richting De Zeemeeuw; dit punt is niet bereikbaar met de wagen.'], routes:[{label:'Rij naar startparking Zwinlaan',place:'surfParking'},{label:'Rij naar CP5 · Zwinhoeve',place:'zwin'}]},
+    {title:'Joren · van CP5 naar CP9', notes:['Bereik de parking onder de N49 uitsluitend via de Steentjensstraat in 9991 Maldegem. Rijd niet met de wagen langs de vaart.','Parkeer onder de brug dicht bij de andere wagens. Er zijn geen aangeduide parkeerplaatsen.','De straatlink en de parkinglink zijn twee afzonderlijke navigatiestappen; controleer zelf dat de uiteindelijke aanrijroute via Steentjensstraat loopt.'], routes:[{label:'1 · Zoek Steentjensstraat',destination:'Steentjensstraat, 9991 Maldegem, België', search:true},{label:'2 · Rij naar CP9 · N49',place:'n49'}]},
+    {title:'CP9 / CP19 · touwenparcours', notes:['Start en finish liggen bij dezelfde parking onder de N49. Alle vier mogen deelnemen; als jullie met vier starten, moet iedereen elke hindernis overwinnen.','De parking is alleen via Steentjensstraat bereikbaar; rijd niet langs de vaart.'], routes:[{label:'Zoek Steentjensstraat',destination:'Steentjensstraat, 9991 Maldegem, België',search:true},{label:'Rij naar parking CP9 / CP19',place:'n49'}]},
+    {title:'Bastiaan · van CP19 naar CP20', notes:['Rijd naar de grote parking van provinciaal domein Het Leen. Daar kun je vrij parkeren.'], routes:[{label:'Rij naar parking Het Leen · CP20',place:'leen'}]},
+    {title:'Pieter · Het Leen', notes:['De assistentiewagen kan op de grote parking van Het Leen blijven. CP21 bevindt zich aan de cafetaria; de kaartlink leidt naar de parking bij CP20.','Het team moet uiterlijk 16:00 de kaarten bij CP21 inleveren.'], routes:[{label:'Rij naar parking Het Leen',place:'leen'}]},
+    {title:'Met het hele team naar Gent', notes:['Rit met de assistentiewagen, ongeveer 45 minuten. Volg de begeleiders naar de Crossing Belgium-parking op de grasweide met rijplaten, naast de schaatsbaan. Gebruik niet de reguliere parking.','Ga binnen via de zij-ingang van de tuin. Registratie bij CP22 is verplicht en kan vanaf 16:30; wees er uiterlijk 17:30.'], routes:[{label:'Rij naar Kristallijn',place:'kristallijn'}]},
+    {title:'Kristallijn · schaatsestafette', notes:['Het hele team neemt deel. Parkeer op de aangeduide grasweide. Briefing voor alle teams om 17:45; start om 18:45.'], routes:[{label:'Rij naar Kristallijn',place:'kristallijn'}]}
+  ],
+  [
+    {title:'Robbe · van CP1 naar CP2', notes:['Parkeer bij de start op parking P2 aan Zoete Water. Als die vol is, rijd naar P1 en kom te voet naar de start.','Bij The Shelter is de parking klein (maximaal 25 wagens); zoek anders een plek op de openbare weg en volg de verkeersregels.'], routes:[{label:'Rij naar P2 · start',place:'zoete'},{label:'Rij naar The Shelter · CP2',place:'shelter'}]},
+    {title:'Pieter · van CP2 naar de KUL-parking', notes:['Je mag helpen bij het te water laten en bij het uitstappen van de kano. Verlaat de parking bij The Shelter zo snel mogelijk nadat het team is vertrokken.','Parkeer eerst op de publieke KUL-parking aan Willem de Croylaan, bij het kruispunt met Herendreef en de spoorwegovergang. Blokkeer de doorgang niet en gebruik niet de privéparking met slagboom, ook niet als die openstaat.','De kano komt uit bij CP3, ongeveer 600 m van de PA. Ga indien gewenst te voet via de brug over de Dijle nabij Arenbergkasteel; volg de geel-zwarte lintjes.'], routes:[{label:'Rij naar KUL-parking · PA',place:'kul'},{label:'Bekijk kano-uitstap CP3',place:'canoeExit',search:true}]},
+    {title:'Bastiaan · van CP4 naar CP5', notes:['Parkeer binnen de perimeter van 1 Wing Historical Centre in Beauvechain, waar CP5 is opgesteld.','Als de fiets-CT van 12:30 wordt gemist, rijdt het hele team naar CP5.'], routes:[{label:'Rij naar museum · CP5',place:'beau'}]},
+    {title:'Assistent op het parcours', notes:['Bij het hindernisparcours assisteert één persoon in een geel hesje: help en zorg voor de veiligheid, maar ga niet over de hindernissen. Wisselen mag na één ronde.','Alle vier mogen de museumproeven doen. Neem je identiteitskaart mee naar de ingang van het militair kamp.','Meld vertrek richting Dinant bij CP5; de verbindingsrit moet uiterlijk 16:15 starten.'], routes:[{label:'Rij naar centraal punt CP5',place:'beau'}]},
+    {title:'Met het hele team naar het hotel', notes:['Reken ongeveer 60 minuten rijden; vertrek uiterlijk 16:15. Gebruik voor de speciale parking in de tuin en bij de tennisbanen de zij-ingang met het grote hek en de beachflag. Volg de begeleiders.','Ga bij aankomst eerst naar CP8 aan de voet van de rotsen; pas na de via ferrata inchecken.'], routes:[{label:'Rij naar hotel',place:'hotel'},{label:'Bekijk CP8 · rotsen',place:'cliffs',search:true}]},
+    {title:'Via ferrata / rappel', notes:['Minstens drie teamleden nemen deel; vier mag ook. Ga eerst naar CP8 aan de voet van de rotsen, daarna kan het team inchecken.'], routes:[{label:'Bekijk CP8 · rotsen',place:'cliffs',search:true}]}
+  ],
+  [
+    {title:'Robbe · assistentie per fiets', notes:['Dag 4 wordt geen assistentiewagen gebruikt. Fiets vanaf het hotel naar CP2 / Plain des Fosses via de baan; ongeveer 1,1 km.'], routes:[{label:'Fiets naar parking CP2',place:'fosses',mode:'bicycling'}]},
+    {title:'Speleo · CP2 / CP3', notes:['Alle vier mogen de speleo doen. Volg vanaf parking CP2 de geel-zwarte lintjes naar de ingang en na afloop terug naar de parking.'], routes:[{label:'Fiets naar parking CP2',place:'fosses',mode:'bicycling'}]},
+    {title:'Pieter · per fiets naar CP5', notes:['Fiets van CP2 / CP4 naar de parking bij CP5 via Rue de Waulx en kaart D4-1. Het roadbook vermeldt een klim van 2,4 km en 100 hoogtemeters.','De fietslink leidt naar CP5 maar legt Rue de Waulx niet vast: controleer de voorgestelde route en volg de wedstrijdkaart.'], routes:[{label:'Fiets naar CP5 · Alpinistes',place:'alpinistes',mode:'bicycling'}]},
+    {title:'Vanaf CP5 · samen of als assistent', notes:['Het team kan met vier verder en één fiets meenemen. Als drie personen verdergaan, moet de assistent met de fiets terug naar het hotel via Rue de Waulx en vervolgens naar CP8.','De links zijn afzonderlijke fietstrajecten en leggen Rue de Waulx niet vast: controleer de voorgestelde route.'], routes:[{label:'Fiets naar het hotel',place:'hotel',mode:'bicycling'},{label:'Fiets naar CP8 · Lesse',place:'lesse',mode:'bicycling'}]},
+    {title:'River crossing · CP8', notes:['Als alle vier in de race zitten, moet de fiets mee over het water. Anders begeeft de assistent zich per fiets via het hotel naar CP8.'], routes:[{label:'Fiets naar CP8 · Lesse',place:'lesse',mode:'bicycling'}]},
+    {title:'Rafting · CP8', notes:['Alle vier mogen raften. Komt de assistent per fiets naar CP8, dan brengt de organisatie de fiets terug naar het hotel.'], routes:[{label:'Fiets naar CP8 · Lesse',place:'lesse',mode:'bicycling'}]},
+    {title:'Finish aan het hotel', notes:['De finish ligt op het terras van het hotel. Volg vanaf CP9 de geel-zwarte lintjes.'], routes:[{label:'Bekijk hotel · finish',place:'hotel',search:true}]}
+  ]
+];
+
 const escapeHTML = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const e = escapeHTML;
 function locationCard(label, key) {
   const place = places[key];
   return `<div class="location"><span class="location-label">${e(label)}</span><h5>${e(place.name)}</h5><p>${e(place.address)}</p>${place.query ? `<a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(place.query)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${e(place.name)} in Google Maps">Open in Maps <span aria-hidden="true">↗</span></a>` : '<span class="unknown">Geen kaartlocatie beschikbaar</span>'}</div>`;
 }
-function stageCard(s, index) {
+function assistanceCard(info) {
+  const links = info.routes.map(route => {
+    const destination = route.destination || places[route.place].query;
+    const url = route.search
+      ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(destination)}`
+      : `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}&travelmode=${route.mode || 'driving'}`;
+    return `<a class="map-link assistance-route" href="${e(url)}" target="_blank" rel="noopener noreferrer">${e(route.label)} ↗</a>`;
+  }).join('');
+  return `<section class="assistance-box" aria-label="Informatie voor assistentie"><p class="assistance-kicker">ASSISTENTIE</p><h5>${e(info.title)}</h5><ul>${info.notes.map(note => `<li>${e(note)}</li>`).join('')}</ul>${links ? `<div class="assistance-routes">${links}</div>` : ''}</section>`;
+}
+function stageCard(s, index, info) {
   const quickMap = (label, key) => {
     const place = places[key];
     return place.query
       ? `<a class="quick-map" href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(place.query)}" target="_blank" rel="noopener noreferrer" aria-label="${e(label)} van ${e(s.title)}: ${e(place.name)} openen in Google Maps">${e(label)} ↗</a>`
       : `<span class="quick-map unavailable">${e(label)} onbekend</span>`;
   };
-  return `<article class="stage-card"><details class="stage" id="stage-${index + 1}"><summary><span class="stage-number">${e(s.n)}</span><span class="stage-main"><h4>${e(s.title)}</h4><span class="stage-sub">${e(s.sub)}</span><span class="summary-facts"><span><b>Assistentie / team:</b> ${e(s.assist)}</span>${s.distance ? `<span>${e(s.distance)}</span>` : ''}${s.time ? `<span class="summary-time ${/CT|vóór|uiterlijk|Terug|Sluit/i.test(s.time) ? 'urgent' : ''}">${e(s.time)}</span>` : ''}</span></span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="stage-body"><div class="locations">${locationCard(s.fromLabel || 'Start',s.from)}${locationCard(s.toLabel || 'Einde',s.to)}${s.extra ? locationCard(s.extra.label,s.extra.place) : ''}</div>${s.timing ? `<div class="timing"><strong>Let op · </strong>${e(s.timing)}</div>` : ''}<div class="notes"><h5>Goed om te weten</h5><ul>${s.notes.map(note => `<li>${e(note)}</li>`).join('')}</ul></div></div></details><div class="quick-maps" aria-label="Kaartlinks ${e(s.title)}">${quickMap(s.fromLabel || 'Start',s.from)}${quickMap(s.toLabel || 'Einde',s.to)}${s.extra ? quickMap('Assistentieparking',s.extra.place) : ''}</div></article>`;
+  return `<article class="stage-card"><details class="stage" id="stage-${index + 1}"><summary><span class="stage-number">${e(s.n)}</span><span class="stage-main"><h4>${e(s.title)}</h4><span class="stage-sub">${e(s.sub)}</span><span class="summary-facts"><span><b>Assistentie / team:</b> ${e(s.assist)}</span>${s.distance ? `<span>${e(s.distance)}</span>` : ''}${s.time ? `<span class="summary-time ${/CT|vóór|uiterlijk|Terug|Sluit/i.test(s.time) ? 'urgent' : ''}">${e(s.time)}</span>` : ''}</span></span><span class="chevron" aria-hidden="true">⌄</span></summary><div class="stage-body">${assistanceCard(info)}<div class="locations">${locationCard(s.fromLabel || 'Start',s.from)}${locationCard(s.toLabel || 'Einde',s.to)}${s.extra ? locationCard(s.extra.label,s.extra.place) : ''}</div>${s.timing ? `<div class="timing"><strong>Let op · </strong>${e(s.timing)}</div>` : ''}<div class="notes"><h5>Goed om te weten</h5><ul>${s.notes.map(note => `<li>${e(note)}</li>`).join('')}</ul></div></div></details><div class="quick-maps" aria-label="Kaartlinks ${e(s.title)}">${quickMap(s.fromLabel || 'Start',s.from)}${quickMap(s.toLabel || 'Einde',s.to)}${s.extra ? quickMap('Assistentieparking',s.extra.place) : ''}</div></article>`;
 }
 const tabs = document.getElementById('day-tabs');
 const content = document.getElementById('day-content');
 function showDay(index, updateHash = true) {
   const day = days[index];
   tabs.innerHTML = days.map((d,i) => `<button type="button" class="day-tab" aria-pressed="${i === index}" data-day="${i}"><small>DAG ${i + 1}</small><strong>${e(d.date.split(' ')[0])} ${e(d.date.split(' ')[1])}</strong><span>${e(d.short)}</span></button>`).join('');
-  content.innerHTML = `<div class="day-banner"><div><p class="eyebrow">DAG ${index + 1} · ${e(day.date)}</p><h2>${e(day.route)}</h2></div><span class="stage-count">${day.stages.length} onderdelen</span></div><div class="day-brief"><span class="day-brief-icon">✳</span><div><strong>Even vooraf</strong><p>${e(day.brief)}</p></div></div>${day.extra ? `<div class="locations" style="margin-bottom:12px">${locationCard(day.extra.label,day.extra.place)}</div>` : ''}<div class="stage-list">${day.stages.map(stageCard).join('')}</div>`;
+  content.innerHTML = `<div class="day-banner"><div><p class="eyebrow">DAG ${index + 1} · ${e(day.date)}</p><h2>${e(day.route)}</h2></div><span class="stage-count">${day.stages.length} onderdelen</span></div><div class="day-brief"><span class="day-brief-icon">✳</span><div><strong>Even vooraf</strong><p>${e(day.brief)}</p></div></div>${day.extra ? `<div class="locations" style="margin-bottom:12px">${locationCard(day.extra.label,day.extra.place)}</div>` : ''}<div class="stage-list">${day.stages.map((stage, stageIndex) => stageCard(stage, stageIndex, assistance[index][stageIndex])).join('')}</div>`;
   if (updateHash) history.replaceState(null, '', `#dag-${index + 1}`);
 }
 tabs.addEventListener('click', event => { const button = event.target.closest('[data-day]'); if (button) showDay(Number(button.dataset.day)); });
